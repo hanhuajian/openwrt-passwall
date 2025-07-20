@@ -94,7 +94,7 @@ jobs:
 
       - name: Cache openwrt SDK
         id: cache-sdk
-        uses: actions/cache@v4.23
+        uses: actions/cache@v4
         with:
           path: sdk
           key: openwrt-luci-${{ matrix.luci_ver }}-x86_64
