@@ -160,7 +160,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{needs.job_check.outputs.passwall_version}}
-          files: ${{ env.FIRMWARE }}/passwall/*.ipk
+          files: ${{ env.FIRMWARE }}/passwall/*.apk
 
 
   job_auto_compile:
@@ -275,7 +275,7 @@ jobs:
           cd sdk
           mkdir upload
 
-          zip -jr upload/passwall_packages_ipk_${{ matrix.platform }}.zip bin/packages/*/passwall_packages/*.ipk
+          zip -jr upload/passwall_packages_ipk_${{ matrix.platform }}.zip bin/packages/*/passwall_packages/*.apk
 
           echo "FIRMWARE=$PWD" >> $GITHUB_ENV
           echo "status=success" >> $GITHUB_OUTPUT
