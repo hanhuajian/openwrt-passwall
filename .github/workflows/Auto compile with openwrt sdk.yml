@@ -79,8 +79,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - sdk_ver: "snapshot"
-            luci_ver: "snapshot"
+          - sdk_ver: "main"
+            luci_ver: "main"
             sdk_url: https://downloads.openwrt.org/snapshots/targets/x86/64/openwrt-sdk-x86-64_gcc-14.3.0_musl.Linux-x86_64.tar.zst
     steps:
       - name: Install packages
