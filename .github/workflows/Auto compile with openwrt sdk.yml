@@ -79,8 +79,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - sdk_ver: "main"
-            luci_ver: "main"
+          - sdk_ver: "snapshots"
+            luci_ver: "snapshots"
             sdk_url: https://downloads.openwrt.org/snapshots/targets/x86/64/openwrt-sdk-x86-64_gcc-14.3.0_musl.Linux-x86_64.tar.zst
     steps:
       - name: Install packages
@@ -94,7 +94,7 @@ jobs:
 
       - name: Cache openwrt SDK
         id: cache-sdk
-        uses: actions/cache@v4
+        uses: actions/cache@v4.23
         with:
           path: sdk
           key: openwrt-luci-${{ matrix.luci_ver }}-x86_64
@@ -154,7 +154,7 @@ jobs:
           echo "FIRMWARE=$PWD" >> $GITHUB_ENV
 
       - name: Upload passwall ipks to release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v2.3.2
         if: steps.compile.outputs.status == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -174,7 +174,7 @@ jobs:
         include:
           - platform: x86_64
             url_sdk: https://downloads.openwrt.org/snapshots/targets/x86/64/openwrt-sdk-x86-64_gcc-14.3.0_musl.Linux-x86_64.tar.zst
-            sdk_ver: "snapshot"
+            sdk_ver: "snapshots"
 
 
     steps:
@@ -195,7 +195,7 @@ jobs:
           cd sdk
 
       - name: SSH connection to Actions
-        uses: mxschmitt/action-tmate@v3.13
+        uses: mxschmitt/action-tmate@v3.22
         if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
 
       - name: ${{ matrix.platform }} feeds configuration packages
