@@ -79,13 +79,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - sdk_ver: "snapshots"
-            luci_ver: "snapshots"
+          - sdk_ver: "snapshot"
+            luci_ver: "snapshot"
             sdk_url: https://downloads.openwrt.org/snapshots/targets/x86/64/openwrt-sdk-x86-64_gcc-14.3.0_musl.Linux-x86_64.tar.zst
-
-          - sdk_ver: "24.10"
-            luci_ver: "24.10"
-            sdk_url: https://downloads.openwrt.org/releases/24.10.1/targets/x86/64/openwrt-sdk-24.10.1-x86-64_gcc-13.3.0_musl.Linux-x86_64.tar.zst
     steps:
       - name: Install packages
         run: |
@@ -118,7 +114,7 @@ jobs:
           echo "src-git passwall https://github.com/${{ env.passwall }}.git;${{ github.ref_name }}" >> feeds.conf
 
           rm -rf feeds/packages/lang/golang
-          git clone https://github.com/sbwml/packages_lang_golang -b 24.x feeds/packages/lang/golang
+          git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golangg
           
           ./scripts/feeds update -a
           echo "CONFIG_PACKAGE_luci-app-passwall=m" > .config
@@ -178,7 +174,8 @@ jobs:
         include:
           - platform: x86_64
             url_sdk: https://downloads.openwrt.org/snapshots/targets/x86/64/openwrt-sdk-x86-64_gcc-14.3.0_musl.Linux-x86_64.tar.zst
-            sdk_ver: "snapshots"
+            sdk_ver: "snapshot"
+
 
     steps:
       - name: Initialization ${{ matrix.platform }} compile environment
